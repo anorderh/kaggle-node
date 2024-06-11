@@ -1,8 +1,8 @@
 // src/index.js
-import dotenv from "dotenv";
-import { KaggleClient } from "./module/KaggleClient";
+import dotenv from "dotenv";;
 import { Credentials } from "./module/interfaces/Credentials";
 import { AxiosResponse } from "axios";
+import { KaggleNode } from "./module/KaggleNode";
 
 function HandleKaggleResponse(p: Promise<AxiosResponse>) {
   p.then((res) => {
@@ -25,11 +25,11 @@ function HandleKaggleResponse(p: Promise<AxiosResponse>) {
 
 // Test methods.
 dotenv.config();
-let client = new KaggleClient({
+let creds = {
   username: process.env.KAGGLE_USER,
   key: process.env.KAGGLE_KEY
-} as Credentials);
+} as Credentials;
+let handleStr = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset';
 
-HandleKaggleResponse(client.get("/"));
-// HandleKaggleResponse(client.get("/"));
-// HandleKaggleResponse(client.get("/"));
+let kaggleNode = new KaggleNode(creds);
+HandleKaggleResponse(kaggleNode.datasets.download(handleStr))

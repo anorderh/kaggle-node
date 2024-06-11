@@ -1,4 +1,4 @@
-export let defaults = {
+export let constants = {
     apiEndpoint: 'https://www.kaggle.com',
     basePath: "api/v1",
     timeouts: {
