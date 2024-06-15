@@ -27,7 +27,7 @@ export class KaggleNodeClient {
 
     post(path: string, data: any, config?: AxiosRequestConfig) {
         return this.axiosInstance({
-            method: 'get',
+            method: 'post',
             url: path,
             data: data,
             ...(config ?? [])
