@@ -1,17 +1,27 @@
 import { KaggleNodeClient } from "./KaggleNodeClient";
 import { DatasetHandle } from "./classes/DatasetHandle";
-import { constants } from "./constants";
-import { Credentials } from "./interfaces/Credentials";
-import { KaggleNodeDatasets } from "./services/KaggleNodeDatasets";
+import { KaggleNodeConfig } from "./interfaces/KaggleNodeConfig";
 
 export class KaggleNode {
     client: KaggleNodeClient;
 
-    // Services.
-    datasets: KaggleNodeDatasets
+    constructor(config: KaggleNodeConfig) {
+        this.client = new KaggleNodeClient(config.client);
+    }
 
-    constructor(creds: Credentials) {
-        this.client = new KaggleNodeClient(creds);
-        this.datasets = new KaggleNodeDatasets(this.client);
+    datasets = {
+        view: (handleStr: string) => {
+            let handle = new DatasetHandle(handleStr);
+            return this.client.get(handle.getViewRoute());
+        },
+        download: (handleStr: string, path?: string) => {
+            let handle = new DatasetHandle(handleStr);
+
+            return this.client.get(handle.getDownloadRoute(
+                path != null 
+                    ? {['file_name']: path} 
+                    : undefined
+            ));
+        }
     }
 }

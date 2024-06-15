@@ -1,13 +1,13 @@
 export let constants = {
-    apiEndpoint: 'https://www.kaggle.com',
-    basePath: "api/v1",
-    timeouts: {
-        connect: 5,
-        read: 15
+    baseUrl: 'https://www.kaggle.com',
+    apiPath: "api/v1",
+    timeouts: { // ms
+        connect: 5000,
+        read: 15000
     },
     envVarNames: {
         cache: "KAGGLEHUB_CACHE",
-        apiEndpoint: "KAGGLE_API_ENDPOINT",
+        baseUrl: "KAGGLE_API_ENDPOINT",
         username: "KAGGLE_USERNAME",
         key: "KAGGLE_KEY",
         usernameJson: "username",

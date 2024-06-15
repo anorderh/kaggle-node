@@ -7,8 +7,6 @@ X Allow passing in custom AxiosConfig into KaggleNodeClient
 X KaggleNode creates new clients per request, but also allows KaggleNodeClient optiona
 param for reusing clients
 
-- Implement individual file downloading
-
  KAGGLE LINKS
  https://github.com/Kaggle/kagglehub/blob/main/src/kagglehub/clients.py#L39
  https://github.com/Kaggle/kagglehub/blob/main/src/kagglehub/config.py#L59
