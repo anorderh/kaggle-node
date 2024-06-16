@@ -1,7 +1,7 @@
 {
   "name": "kaggle-node",
   "version": "1.0.0",
-  "description": "Kaggle API NodeJS wrapper",
+  "description": "NodeJS Library for Kaggle API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
