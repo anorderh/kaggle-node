@@ -1,7 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
-import dotenv from "dotenv";;
-import { Credentials } from '../src/module/interfaces/Credentials';
-import { KaggleNode } from '../src/module/KaggleNode';
+import dotenv from "dotenv";
+import { KaggleNode, Credentials } from './../src/index.ts';
 
 dotenv.config();
 

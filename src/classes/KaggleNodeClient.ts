@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { Credentials } from "./interfaces/Credentials";
-import { constants } from "./constants/constants";
-import { KaggleNodeClientConfig } from "./interfaces/KaggleNodeClientConfig";
+import { constants } from "./../constants/constants";
+import { KaggleNodeClientConfig } from "./../interfaces/KaggleNodeClientConfig";
 
 export class KaggleNodeClient {
     axiosInstance : AxiosInstance;

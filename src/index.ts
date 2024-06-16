@@ -1,26 +1,15 @@
-// src/index.js
-import dotenv from "dotenv";;
-import { Credentials } from "./module/interfaces/Credentials";
-import { AxiosResponse } from "axios";
-import { KaggleNode } from "./module/KaggleNode";
+// Classes.
+export * from './classes/DatasetHandle';
+export * from './classes/KaggleNode';
+export * from './classes/KaggleNodeClient';
 
-// Test methods.
-dotenv.config();
+// Constants.
+export * from './constants/constants';
 
-async function main() {
-  let handleStr = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset';
+// Interfaces.
+export * from './interfaces/Credentials';
+export * from './interfaces/KaggleNodeConfig';
+export * from './interfaces/KaggleNodeClientConfig';
 
-  let kaggleNode = new KaggleNode({
-    client: {
-      credentials: {
-        username: process.env.KAGGLE_USER,
-        key: process.env.KAGGLE_KEY
-      } as Credentials
-    }
-  });
-  let res = await kaggleNode.datasets.view(handleStr);
-  console.log(res.status);
-  console.log(res.headers);
-  console.log(res.data);
-}
-main();
+// Utils.
+export * from './utils/integrity';
