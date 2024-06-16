@@ -20,6 +20,7 @@ async function main() {
   });
   let res = await kaggleNode.datasets.view(handleStr);
   console.log(res.status);
+  console.log(res.headers);
   console.log(res.data);
 }
 main();

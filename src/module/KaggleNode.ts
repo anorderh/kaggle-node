@@ -9,14 +9,18 @@ export class KaggleNode {
         this.client = new KaggleNodeClient(config.client);
     }
 
+    utils = {
+        parseHandle: (handleStr: string) => {
+            return new DatasetHandle(handleStr);
+        }
+    }
     datasets = {
         view: (handleStr: string) => {
-            let handle = new DatasetHandle(handleStr);
+            let handle = this.utils.parseHandle(handleStr);
             return this.client.get(handle.getViewRoute());
         },
         download: (handleStr: string, path?: string) => {
-            let handle = new DatasetHandle(handleStr);
-
+            let handle = this.utils.parseHandle(handleStr);
             return this.client.get(handle.getDownloadRoute(
                 path != null 
                     ? {['file_name']: path} 
