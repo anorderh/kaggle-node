@@ -19,7 +19,7 @@ describe('datasets', () => {
         let res = await kaggleNode.datasets.view(handleStr);
         
         expect(res.status).toBe(200);
-        expect(res.headers['content-type']).toBe('application/json');
+        expect(res.headers['content-type']).toBe("application/json; charset=utf-8");
     })
 
     test('download dataset zip', async () => {
