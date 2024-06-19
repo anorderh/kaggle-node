@@ -1,18 +1,18 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { constants } from "./../constants/constants";
 import { KaggleNodeClientConfig } from "./../interfaces/KaggleNodeClientConfig";
+import { Credentials } from "../interfaces/Credentials";
 
 export class KaggleNodeClient {
     axiosInstance : AxiosInstance;
 
-    constructor(config: KaggleNodeClientConfig) {
+    constructor(creds?: Credentials, config?: KaggleNodeClientConfig) {
         this.axiosInstance = axios.create({
             baseURL: [constants.baseUrl, constants.apiPath].join("/"),
-            timeout: config.timeout ?? 10000,
-            auth: {
-                username: config.credentials.username,
-                password: config.credentials.key 
-            }
+            auth: creds != null
+                ? { username: creds?.username, password: creds?.key }
+                : undefined,
+            timeout: config?.timeout ?? 10000,
         });
     }
 
@@ -20,7 +20,7 @@ export class KaggleNodeClient {
         return this.axiosInstance({
             method: 'get',
             url: path,
-            ...(config ?? [])
+            ...(config ?? {})
         });
     }
 
@@ -29,7 +29,7 @@ export class KaggleNodeClient {
             method: 'post',
             url: path,
             data: data,
-            ...(config ?? [])
+            ...(config ?? {})
         });
     }
 }

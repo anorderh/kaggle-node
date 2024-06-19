@@ -1,5 +1,7 @@
+import { Credentials } from "./Credentials";
 import { KaggleNodeClientConfig } from "./KaggleNodeClientConfig";
 
 export interface KaggleNodeConfig {
-    client: KaggleNodeClientConfig
+    credentials?: Credentials
+    clientOptions?: KaggleNodeClientConfig
 }

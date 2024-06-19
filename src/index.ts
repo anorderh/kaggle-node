@@ -6,6 +6,9 @@ export * from './classes/KaggleNodeClient';
 // Constants.
 export * from './constants/constants';
 
+// Enums.
+export * from './enums/DatasetQueryOptions';
+
 // Interfaces.
 export * from './interfaces/Credentials';
 export * from './interfaces/KaggleNodeConfig';

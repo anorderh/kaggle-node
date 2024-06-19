@@ -5,20 +5,11 @@ import { KaggleNode, Credentials, DatasetHandle } from '../src/index.ts';
 dotenv.config();
 
 describe('parsing', () => {
-    let kaggleNode = new KaggleNode({
-        client: {
-          credentials: {
-            username: process.env.KAGGLE_USER,
-            key: process.env.KAGGLE_KEY
-          } as Credentials
-        }
-    });    
-
     test('parse handle', () => {
         let handleStr = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset'
         let handle;
         expect(() => {
-            handle = kaggleNode.parsing.getHandle(handleStr)
+            handle = new DatasetHandle(handleStr)
         }).not.toThrow();
         expect(handle.version).toBe(undefined);
     })
@@ -27,7 +18,7 @@ describe('parsing', () => {
         let handleStrVersion = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset/versions/2';
         let handle;
         expect(() => {
-            handle = kaggleNode.parsing.getHandle(handleStrVersion)
+            handle = new DatasetHandle(handleStrVersion)
         }).not.toThrow()
         expect(handle.version).not.toBe(undefined)
     })
@@ -37,10 +28,10 @@ describe('parsing', () => {
         let invalidVer = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset/versions/baloney';
 
         expect(() => {
-            kaggleNode.parsing.getHandle(invalidParams)
+            new DatasetHandle(invalidParams)
         }).toThrow("Invalid handle string.");
         expect(() => {
-            kaggleNode.parsing.getHandle(invalidVer)
+            new DatasetHandle(invalidVer)
         }).toThrow("Version number is malformed.");
     })
 });

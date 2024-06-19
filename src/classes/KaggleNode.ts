@@ -1,26 +1,33 @@
 import { KaggleNodeClient } from "./KaggleNodeClient";
 import { DatasetHandle } from "./DatasetHandle";
 import { KaggleNodeConfig } from "./../interfaces/KaggleNodeConfig";
+import { DatasetQueryOptions } from "../interfaces/DatasetQueryOptions";
+import { constants } from "../constants/constants";
+import { DatasetQuery } from "./DatasetQuery";
 
 export class KaggleNode {
     private client: KaggleNodeClient;
 
-    constructor(config: KaggleNodeConfig) {
-        this.client = new KaggleNodeClient(config.client);
+    constructor(config?: KaggleNodeConfig) {
+        this.client = new KaggleNodeClient(
+            config?.credentials,
+            config?.clientOptions
+        );
     }
 
-    parsing = {
-        getHandle: (handleStr: string) => {
-            return new DatasetHandle(handleStr);
-        }
-    }
     datasets = {
+        search: (options?: DatasetQueryOptions) => {
+            let query = new DatasetQuery(options);
+            return this.client.get('datasets/list', {
+                params: query.params()
+            })
+        },  
         view: (handleStr: string) => {
-            let handle = this.parsing.getHandle(handleStr);
+            let handle = new DatasetHandle(handleStr);
             return this.client.get(handle.getViewRoute());
         },
         download: (handleStr: string, path?: string) => {
-            let handle = this.parsing.getHandle(handleStr);
+            let handle = new DatasetHandle(handleStr);
             return this.client.get(handle.getDownloadRoute(
                 path != null 
                     ? {['file_name']: path} 

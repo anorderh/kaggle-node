@@ -1,3 +1,9 @@
+import { 
+    DatasetQuerySorting, 
+    DatasetQueryFileTypes, 
+    DatasetQueryLicenses } 
+from "../enums/DatasetQueryOptions";
+
 export let constants = {
     baseUrl: 'https://www.kaggle.com',
     apiPath: "api/v1",
@@ -17,5 +23,21 @@ export let constants = {
         disableCache: "DISABLE_KAGGLE_CACHE",
         disableColabCache: "DISABLE_COLAB_CACHE",
         runtimeAddr: "TBE_RUNTIME_ADDR"
+    },
+    filtering: {
+        sortBy: Object.values(DatasetQuerySorting) as string[],
+        fileTypes: Object.values(DatasetQueryFileTypes) as string[],
+        licenses: Object.values(DatasetQueryLicenses) as string[],
+    },
+    defaults: {
+        datasetQueryParams: {
+            'sortBy': DatasetQuerySorting.HOTTEST,
+            'filetype': DatasetQueryFileTypes.ALL,
+            'license': DatasetQueryLicenses.ALL,
+            'tagids': '',
+            'search': '',
+            'user': '',
+            'page': 1,
+        }
     }
 }
