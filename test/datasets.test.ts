@@ -1,6 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import dotenv from "dotenv";
-import { KaggleNode, Credentials, KaggleNodeConfig } from './../src/index.ts';
+import { KaggleNode, Credentials, KaggleNodeConfig, constants, DatasetQuerySorting, DatasetQueryFileTypes, DatasetQueryLicenses } from './../src/index.ts';
+import { deriveQueryParams } from './../src/index.ts';
 
 dotenv.config();
 
@@ -11,8 +12,24 @@ describe('datasets', () => {
             key: process.env.KAGGLE_KEY
         } as Credentials
     });
+
+    test('search datasets', async () => {
+        let res = await kaggleNode.datasets.search({
+            sortBy: DatasetQuerySorting.VOTES
+        });
+
+        expect(res.status).toBe(200);
+        expect(res.data[0].id).toBe(661950); // https://www.kaggle.com/datasets/jessicali9530/animal-crossing-new-horizons-nookplaza-dataset
+    })
+
+    test ('search datasets, default params', async () => {
+        let res = await kaggleNode.datasets.search();
+
+        expect(res.status).toBe(200);
+        expect(deriveQueryParams(res.request.path)).toStrictEqual(constants.defaults.datasetQueryParams);
+    })
     
-    test('dataset metadata', async () => {
+    test('view dataset', async () => {
         let handleStr = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset';
         let res = await kaggleNode.datasets.view(handleStr);
         

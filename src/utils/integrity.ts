@@ -19,3 +19,21 @@ export function getMD5ChecksumFromResponse(res: AxiosResponse) : string | null {
     }
     return null;
 }
+
+export function deriveQueryParams(path: string, specifyParams?: string[]) {
+    let params = path.substring(path.indexOf('?')+1)
+        .split('&')
+        .reduce((obj: any, option) => {
+            let [prop, val] = option.split("=");
+            if (specifyParams == undefined || specifyParams.includes(prop)) {
+                if (!!val && !isNaN(Number(val))) {
+                    obj[prop] = Number(val);
+                } else {
+                    obj[prop] = val;
+                }
+            }
+            return obj;
+        }, {});
+    delete params['group']; // 'group' is not included in any input queries.
+    return params;
+}

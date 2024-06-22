@@ -1,5 +1,6 @@
-// Classes.
+// Classes.'
 export * from './classes/DatasetHandle';
+export * from './classes/DatasetQuery';
 export * from './classes/KaggleNode';
 export * from './classes/KaggleNodeClient';
 
@@ -7,7 +8,7 @@ export * from './classes/KaggleNodeClient';
 export * from './constants/constants';
 
 // Enums.
-export * from './enums/DatasetQueryOptions';
+export * from './enums/DatasetQueryEnums';
 
 // Interfaces.
 export * from './interfaces/Credentials';

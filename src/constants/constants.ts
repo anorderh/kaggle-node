@@ -2,7 +2,7 @@ import {
     DatasetQuerySorting, 
     DatasetQueryFileTypes, 
     DatasetQueryLicenses } 
-from "../enums/DatasetQueryOptions";
+from "../enums/DatasetQueryEnums";
 
 export let constants = {
     baseUrl: 'https://www.kaggle.com',

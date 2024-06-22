@@ -1,5 +1,5 @@
 import { constants } from "../constants/constants";
-import { DatasetQueryGroups } from "../enums/DatasetQueryOptions";
+import { DatasetQueryGroups } from "../enums/DatasetQueryEnums";
 import { DatasetQueryOptions } from "../interfaces/DatasetQueryOptions";
 
 export class DatasetQuery {
@@ -18,7 +18,7 @@ export class DatasetQuery {
         if (!!this.options.license && !constants.filtering.licenses.includes(this.options.license)) {
             throw new Error(`Invalid license specified. Valid options are ${'[ ' + constants.filtering.licenses.join(", ") + ' ]'}.`)
         }
-        if ((this.options.page ?? 0) <= 0) {
+        if (!!this.options.page && this.options.page <= 0) {
             throw new Error('Page number must be >= 1.');
         }
         if (!!this.options.minSize && this.options.minSize < 0) {
@@ -55,8 +55,8 @@ export class DatasetQuery {
             )
         }
 
-        // Determined by user param's presence.
-        params['group'] = params['user']
+        // Determined by 'user' param's presence.
+        params['group'] = !!params['user']
             ? DatasetQueryGroups.USER
             : DatasetQueryGroups.PUBLIC
 

@@ -3,7 +3,7 @@ export enum DatasetQuerySorting {
     VOTES = 'votes',
     UPDATED = 'updated',
     ACTIVE = 'active',
-    PUBLUSHED = 'published'
+    PUBLISHED = 'published'
 }
 
 export enum DatasetQueryFileTypes {
