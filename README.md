@@ -90,6 +90,12 @@ Preview datasets.
 let res = await kaggleNode.datasets.view(handleStr); // application/json
 ```
 
+List datasets' files.
+
+```ts
+let res = await kaggleNode.datasets.list(handleStr); // application/json
+```
+
 Download an entire dataset.
 
 ```ts

@@ -37,6 +37,26 @@ describe('datasets', () => {
         expect(res.headers['content-type']).toBe("application/json");
     })
 
+    test('list datasets files', async () => {
+        let handleStr = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset';
+        let expectedFilenames = [
+            'accessories.csv',   'achievements.csv',
+            'art.csv',           'bags.csv',
+            'bottoms.csv',       'construction.csv',
+            'dress-up.csv',      'fencing.csv',
+            'fish.csv',          'floors.csv',
+            'fossils.csv',       'headwear.csv',
+            'housewares.csv',    'insects.csv',
+            'miscellaneous.csv', 'music.csv',
+            'other.csv',         'photos.csv',
+            'posters.csv',       'reactions.csv'
+          ]
+
+        let res = await kaggleNode.datasets.list(handleStr);
+        let grabbedFilenames = res.data.datasetFiles.map(e => e.nameNullable);
+        expect(new Set(expectedFilenames)).toEqual(new Set(grabbedFilenames));
+    })
+
     test('download dataset zip', async () => {
         let handleStr = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset';
         let res = await kaggleNode.datasets.download(handleStr);

@@ -26,6 +26,10 @@ export class KaggleNode {
             let handle = new DatasetHandle(handleStr);
             return this.client.get(handle.getViewRoute());
         },
+        list: (handleStr: string) => {
+            let handle = new DatasetHandle(handleStr);
+            return this.client.get(handle.getListRoute());
+        },
         download: (handleStr: string, path?: string) => {
             let handle = new DatasetHandle(handleStr);
             return this.client.get(handle.getDownloadRoute(

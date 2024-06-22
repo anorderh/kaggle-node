@@ -1,6 +1,6 @@
 {
   "name": "kaggle-node",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "NodeJS Library for Kaggle API",
   "repository": {
     "type": "git",

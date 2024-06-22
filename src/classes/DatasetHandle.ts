@@ -31,6 +31,17 @@ export class DatasetHandle {
         return `datasets/view/${this.owner}/${this.dataset}`;
     }
 
+    getListRoute() {
+        return (
+            `datasets/list/${this.owner}/${this.dataset}`
+            + (
+                this.version != null
+                    ? `?dataset_version_number=${this.version}`
+                    : ''   
+            )
+        )
+    }
+
     getDownloadRoute(added?: { [key: string]: any; }) {
         let queryStr = Object.entries({
             'dataset_version_number': this.version,
@@ -51,6 +62,10 @@ export class DatasetHandle {
 
     getDownloadUrl() {
         return `${constants.baseUrl}/${constants.apiPath}/${this.getDownloadRoute()}`;
+    }
+
+    getListUrl() {
+        return `${constants.baseUrl}/${constants.apiPath}/${this.getListRoute()}`;
     }
 
     getViewUrl() {
