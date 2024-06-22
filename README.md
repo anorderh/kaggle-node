@@ -68,6 +68,8 @@ let res = await kaggleNode.datasets.search({
 } as DatasetQueryOptions);
 ```
 
+To learn more about filtering options, check out [DatasetQueryEnums.ts](src/enums/DatasetQueryEnums.ts).
+
 To interact with datasets, use the associated handle string. This can be found from parsing the dataset's URL or accessing the `ref` property within a dataset search response.
 
 If you would like to specify versioning, append a `versions` clause followed by the version number. To learn about a dataset's versioning, 
@@ -110,7 +112,7 @@ let res = await kaggleNode.datasets.download(handleStr, "accessories.csv"); // t
 - [ ] Notebooks
 - [ ] Colab
 
-Contributions to this repo are welcome. This library is based off Kaggle's official API repos. I advise referencing their repos for new implementation, to keep functionality standardized.
+Contributions to this repo are welcome. This library is based off Kaggle's official API repos. I advise referencing them for new implementation, to keep functionality standard.
 
 ### References
 
