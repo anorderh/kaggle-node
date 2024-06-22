@@ -32,26 +32,32 @@ export class DatasetHandle {
     }
 
     getDownloadRoute(added?: { [key: string]: any; }) {
-        let params = Object.fromEntries(
-            Object.entries({
-                'dataset_version_number': this.version,
-                ...(added ?? {})
-            }).filter(([prop, val]) => val != null)
-        );
-
+        let queryStr = Object.entries({
+            'dataset_version_number': this.version,
+            ...(added ?? {})
+        }).filter(([prop, val]) => val != undefined)
+            .map(([prop, val]) => `${prop}=${val}`)
+            .join("&");
+        
         return (
-            `datasets/download/${this.owner}/${this.dataset}`
+            `datasets/download/${this.owner}/${this.dataset}` 
             + (
-                !!params
-                    ? '?' + Object.entries(params)
-                        .map(([prop, val]) => `${prop}=${val}`)
-                        .join("&")
+                queryStr != ''
+                    ? '?' + queryStr
                     : ''
             )
         )
     }
 
-    getUrl() {
+    getDownloadUrl() {
+        return `${constants.baseUrl}/${constants.apiPath}/${this.getDownloadRoute()}`;
+    }
+
+    getViewUrl() {
+        return `${constants.baseUrl}/${constants.apiPath}/${this.getViewRoute()}`;
+    }
+
+    getWebUrl() {
         return (
             `${constants.baseUrl}/datasets/${this.owner}/${this.dataset}`
             + (

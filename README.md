@@ -16,34 +16,62 @@ Authenticating is only needed to access public resources requiring user consent 
 
 First, you will need a Kaggle account. You can sign up [here](https://www.kaggle.com/).
 
-After login, you can download your Kaggle API credentials at https://www.kaggle.com/settings by clicking on the "Create New Token" button under the "API" section.
+After login, you can download your Kaggle API credentials at https://www.kaggle.com/settings by clicking the "Create New Token" button under the **API** section.
 
 ```
-{"username":[YOUR_USERNAME],"key":[YOUR_KEY]}
+{"username": YOUR_USERNAME,"key": YOUR_KEY}
 ```
 
 ### Usage
 
 Import and create `KaggleNode` object.
 ```ts
-	import { KaggleNode } from 'kaggle-node';
-	import { Credentials, KaggleNodeConfig, KaggleNodeClientConfig } from 'kaggle-node'; // Types, optional.
+import { KaggleNode } from 'kaggle-node';
 
-	let kaggleNode = new KaggleNode({
-        client: {
-          credentials: {
-            username: [YOUR_USERNAME],
-            key: [YOUR_KEY]
-          }
-        }
-    });
+let kaggleNode = new KaggleNode({
+  credentials: {
+      username: YOUR_USERNAME,
+      key: YOUR_KEY
+  }
+});
 ```
 
 ### Datasets
 
-To interact with datasets, parse the associated handle string from the dataset's URL.
+Search datasets.
 
-If you would like to specify versions, append a `versions` clause followed by the version number. To learn about a dataset's versioning, preview the dataset or visit the dataset's web page and navigate to "Data Explorer" on the right hand side.
+```ts
+let res = await kaggleNode.datasets.search();
+
+/**
+Filter search.
+  'sortBy' - Apply Kaggle sorting criteria, default 'HOTTEST'.
+  'fileType' - Filter by associated file type.
+  'license' - Filter by license.
+  'search' - Filter by keyword search.
+  'tagIds' - Filter by tags.
+  'username' - Filter by Kaggle user account.
+  'page' - API pagination, pagesize of 20.
+  'minSize', 'maxSize' - Filter by bytesize.
+**/
+
+let res = await kaggleNode.datasets.search({
+  sortBy: DatasetQuerySorting.UPDATED,
+  fileType: DatasetQueryFileTypes.JSON,
+  license: DatasetQueryLicenses.GPL,
+  search: "tools",
+  tagIds: [4141, 1070],
+  username: 'rashadrmammadov',
+  page: 2,
+  minSize: 10,
+  maxSize: 1000000
+} as DatasetQueryOptions);
+```
+
+To interact with datasets, use the associated handle string. This can be found from parsing the dataset's URL or accessing the `ref` property within a dataset search response.
+
+If you would like to specify versioning, append a `versions` clause followed by the version number. To learn about a dataset's versioning, 
+navigate to "Data Explorer" on the right-hand side of the dataset's web page or preview the dataset.
 
 Consider https://www.kaggle.com/datasets/jessicali9530/animal-crossing-new-horizons-nookplaza-dataset.
 
@@ -57,7 +85,7 @@ handleStr = 'jessicali9530/animal-crossing-new-horizons-nookplaza-dataset/versio
 Preview datasets.
 
 ```ts
-let res = await kaggleNode.datasets.view(handleStr); // application/json; charset=utf-8
+let res = await kaggleNode.datasets.view(handleStr); // application/json
 ```
 
 Download an entire dataset.
@@ -69,7 +97,7 @@ let res = await kaggleNode.datasets.download(handleStr); // application/zip
 Download a specific file within a dataset.
 
 ```ts
-let res = await kaggleNode.datasets.download(handleStr, "accessories.csv"); // text/csv, image/jpeg, etc.
+let res = await kaggleNode.datasets.download(handleStr, "accessories.csv"); // text/csv
 ```
 
 [Common MIME types for file responses](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
@@ -81,9 +109,8 @@ let res = await kaggleNode.datasets.download(handleStr, "accessories.csv"); // t
 - [X] Datasets
 - [ ] Notebooks
 - [ ] Colab
-- [ ] My kaggle suite knowledge is lacking here
 
-Contributions to this repo are welcome. This library is heavily based off Kaggle's official API repos, I advise referencing their implementation when introducing new features.
+Contributions to this repo are welcome. This library is based off Kaggle's official API repos. I advise referencing their repos for new implementation, to keep functionality standardized.
 
 ### References
 

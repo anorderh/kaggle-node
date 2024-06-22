@@ -8,7 +8,7 @@ export class KaggleNodeClient {
 
     constructor(creds?: Credentials, config?: KaggleNodeClientConfig) {
         this.axiosInstance = axios.create({
-            baseURL: [constants.baseUrl, constants.apiPath].join("/"),
+            baseURL: `${constants.baseUrl}/${constants.apiPath}`,
             auth: creds != null
                 ? { username: creds?.username, password: creds?.key }
                 : undefined,

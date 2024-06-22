@@ -3,6 +3,7 @@ dist
 .vscode
 .env
 .DS_Store
+debug
 
 node_modules/
 .node_modules/
@@ -73,4 +74,3 @@ package-lock.json
 /dist/
 .env
 .DS_Store
-debug
